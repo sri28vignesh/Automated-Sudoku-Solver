@@ -2,4 +2,4 @@
 train_eval.png
 
 #tensorflow model checkpoints
-tfcheck
+tfcheck/*
