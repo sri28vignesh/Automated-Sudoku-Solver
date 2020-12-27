@@ -3,3 +3,5 @@ train_eval.png
 
 #tensorflow model checkpoints
 tfcheck/
+
+_pycache_/
