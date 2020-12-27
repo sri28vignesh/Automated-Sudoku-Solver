@@ -12,7 +12,7 @@ import tensorflow as tf
 from skimage.segmentation import clear_border
 from matplotlib.pyplot import imshow,show
 from tensorflow.keras.models import load_model
-#from backtracking import solveGrid
+from backtracking import solveGrid
 from algorithmx import solve_sudoku
 
 def display_rects(in_img, rects, colour=255):
@@ -311,7 +311,7 @@ show_image(cropped)
 
 digits = getEveryDigits(cropped, squares)
 
-#solved = solveGrid(copy.deepcopy(digits))
+solved = solveGrid(copy.deepcopy(digits))
 sol = []
 for solution in solve_sudoku((3, 3), copy.deepcopy(digits)):
     sol.append(solution)
