@@ -22,6 +22,7 @@ def display_rects(in_img, rects, colour=255):
 
 def show_image(img):
 	imshow(img,cmap = 'gray')
+	show()
 
 def show_digits(digits, colour=255):
 	"""Shows list of 81 extracted digits in a grid format"""
