@@ -22,7 +22,10 @@
     position: relative;
 }
 
-.image-area::before {
+.up-image{
+    margin-bottom: 24px;
+}
+.up-image::before {
     content: 'Uploaded image result';
     color: #fff;
     font-weight: bold;
@@ -35,9 +38,32 @@
     z-index: 1;
 }
 
+.sol-image::before{
+    content: 'Solved image result';
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    z-index: 1;
+}
+
+
 .image-area img {
     z-index: 2;
     position: relative;
+}
+
+.input-file {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
 
 /*
@@ -49,8 +75,6 @@
 */
 body {
     min-height: 100vh;
-    background-color: #757f9a;
-    background-image: linear-gradient(147deg, #757f9a 0%, #d7dde8 100%);
-}
+    background-image: url("./../images/bg_img.svg");
 
-/*
+}
