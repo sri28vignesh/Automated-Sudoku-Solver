@@ -41,22 +41,6 @@ function readURL(input) {
 
     }
     
-    /*var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
-    if (filename.length>0){
-        var blnValid = false;
-                for (var j = 0; j < _validFileExtensions.length; j++) {
-                    var sCurExtension = _validFileExtensions[j];
-                    if (fileName.substr(fileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
-                        
-                        
-                        }
-                    }
-                }
-                if (!blnValid) {
-                    alert("Sorry, " + fileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
-                    return false;
-                }
-    }*/
     
 }
 
@@ -66,17 +50,3 @@ $(function () {
     });
 });
 
-
-/*  ==========================================
-    SHOW UPLOADED IMAGE NAME
-* ========================================== */
-var input = document.getElementById( 'upload' );
-//var infoArea = document.getElementById( 'upload-label' );
-
-input.addEventListener( 'change', showFileName );
-function showFileName( event ) {
-  var input = event.srcElement;
-  var fileName = input.files[0].name;
-  console.log("check2");    
-  //infoArea.textContent = 'File name: ' + fileName;
-}
