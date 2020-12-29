@@ -30,7 +30,7 @@
                 </header>
             
             
-                <div class="row py-4">
+                <div class="row py-3">
                     <div class="col-lg-6 mx-auto">
             
                         <!-- Upload image input-->
@@ -38,12 +38,12 @@
                             <div class="input-group-prepend">
                                 <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
                             </div>
-                            <input class="input-file" id="upload" type="file" onchange="readURL(this);">
+                            <input class="input-file" id="upload" type="file" onchange="readURL(this);" accept="image/*">
                         </div>
                     </div>
                 </div>
 
-                <div class="row py-4">  
+                <div class="row py-3">  
                     <div class="col-md-6 mx-auto">
                         <!-- Uploaded image area-->
                         <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
@@ -57,7 +57,12 @@
                         <div class="sol-image image-area mt-4"><img id="imageSolved" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
             
                     </div>
-                </div>  
+                </div>
+                
+                <div class="row d-flex justify-content-center">
+                    <button class="solve-btn"> <span>Solve Sudoku</span></button>
+                </div>
+
             </div>
 
 
