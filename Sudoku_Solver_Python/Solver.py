@@ -12,8 +12,8 @@ import tensorflow as tf
 from skimage.segmentation import clear_border
 from matplotlib.pyplot import imshow,show
 from tensorflow.keras.models import load_model
-from backtracking import solveGrid
-from algorithmx import solve_sudoku
+from solver_algorithms import backtracking
+from solver_algorithms import algorithmx
 
 def display_rects(in_img, rects, colour=255):
 	"""Displays rectangles on the image."""
@@ -273,52 +273,40 @@ def matrix_convert(label):
     for i in range(0,9):
         matrix.append(label[a:a+9])
         a=a+9
-    for i in range(0,9):
-        print(matrix[i])
     return matrix
 
-def writeImg(solved,old,img,squares):
+def writeImg(solved,org_crop,img,squares):
     font  = cv2.FONT_HERSHEY_SIMPLEX
     fontScale = 0.022*squares[0][1][0]
-    color  = ( 0, 0, 255)
+    color  = ( 29, 184, 69)
     org = (50, 50)
     thickness = 2
-    _img = img.copy()
     img2 = cv2.medianBlur(img.copy(),5)
     img2 = cv2.adaptiveThreshold(img2,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
             cv2.THRESH_BINARY,11,2)
 
     img2 = cv2.bitwise_not(img2, img2)
-    #_img = _img.resize(500,500)
     for square in squares:
         write_digit = extract_digit(img2, square, 28)
         numPixels = cv2.countNonZero(write_digit)
         tp = (int(square[0][0]+(squares[0][1][0]/3)),int(square[0][1]+(squares[0][1][0]/1.3)))
         if numPixels<80:        
-            cv2.putText(_img,str(solved[int(square[0][1]/squares[0][1][0])][int(square[0][0]/squares[0][1][0])]),tp, font,  fontScale,color, thickness, cv2.LINE_AA)
-    return _img
+            cv2.putText(org_crop,str(solved[int(square[0][1]/squares[0][1][0])][int(square[0][0]/squares[0][1][0])]),tp, font,  fontScale,color, thickness, cv2.LINE_AA)
+    return org_crop
 
-img = cv2.imread('.\Puzzles\example-big.png', cv2.IMREAD_GRAYSCALE)
+def solver(img):
+	img = cv2.imread(img)
+	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	processed = pre_process_image(gray)
+	corners = find_corners_of_largest_polygon(processed)
+	cropped = crop_and_warp(gray, corners)
+	org_crop = crop_and_warp(img, corners)
+	squares = infer_grid(cropped)
+	digits = getEveryDigits(cropped, squares)
+	sol = []
+	for solution in algorithmx((3, 3), copy.deepcopy(digits)):
+		sol.append(solution)
+	result_img = writeImg(solution,org_crop,cropped,squares)
+	return result_img
 
-processed = pre_process_image(img)
-show_image(processed)
-
-corners = find_corners_of_largest_polygon(processed)
-
-cropped = crop_and_warp(img, corners)
-squares = infer_grid(cropped)
-show_image(cropped)
-
-digits = getEveryDigits(cropped, squares)
-
-solved = solveGrid(copy.deepcopy(digits))
-sol = []
-for solution in solve_sudoku((3, 3), copy.deepcopy(digits)):
-    sol.append(solution)
-print("BackTracking Algorithm:")
-print(solved)
-print("Algorithm X:")
-print(sol[0])
-result = writeImg(solved,digits,cropped,squares)
-show_image(result)
-
+show_image(solver('./Puzzles/sudoku.png'))
