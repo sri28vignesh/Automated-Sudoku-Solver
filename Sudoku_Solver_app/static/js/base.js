@@ -8,6 +8,9 @@ function readURL(input) {
         reader.onload = function (e) {
             $('#imageResult')
                 .attr('src', e.target.result);
+            
+            document.getElementById("upload-txt").innerHTML = "Uploaded Sudoku Puzzle Image";
+
         };
         reader.readAsDataURL(input.files[0]);
     }
