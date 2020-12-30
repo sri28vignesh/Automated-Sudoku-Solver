@@ -4,8 +4,8 @@ import cv2
 from io import BytesIO
 import base64
 import matplotlib.pyplot as plt
-'''import sys
-sys.path.append("./../Sudoku_Solver_Python")'''
+from PIL import Image
+from matplotlib import cm
 from Sudoku_Solver_Python.Solver import solver
 
 app = Flask(__name__)
@@ -22,12 +22,12 @@ def test():
 def solve_puzzle():
     puzzle_img = cv2.imdecode(np.fromstring(request.files['user-file'].read(), np.uint8), cv2.IMREAD_UNCHANGED)
     solved_img = solver(puzzle_img)
-    figfile = BytesIO()
-    #plt.savefig(figfile, format='png')
-    figfile.seek(0)
-    figdata_png = base64.b64encode(figfile.getvalue())
-    result = figdata_png
-    return render_template('test.html',solved_shape = result)
+    im = Image.fromarray(solved_img)
+    data = BytesIO()
+    im.save(data, "PNG")
+    encoded_img_data = base64.b64encode(data.getvalue())
+
+    return render_template('test.html',solved_shape =encoded_img_data.decode('utf-8'))
     
 if __name__ == "__main__":
     app.run(debug=True)
