@@ -50,3 +50,28 @@ $(function () {
     });
 });
 
+
+
+
+async function disp_solved_image(){
+
+    let domain = "http://127.0.0.1:5000";
+    let url = domain + "/get-solved-res";
+    let response = await fetch(url);
+
+    console.log(response.ok);
+    
+    if (response.ok) { // if HTTP-status is 200-299
+    // get the response body (the method explained below)
+    let json_res = await response.json();
+    //json_res.resp
+    console.log(json_res.resp);
+    $("#imageSolved").attr('src', 'data:image/jpeg;base64,' + json_res.resp);
+    } 
+    
+    else {
+    //alert("HTTP-Error: " + response.status);
+    document.getElementById("sol-txt").innerHTML = "<font color='#FF0000'>Sorry there is a problem in displaying the solved puzzle image </font>";
+    }
+
+}
