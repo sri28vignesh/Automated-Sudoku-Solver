@@ -12,8 +12,8 @@ import tensorflow as tf
 from skimage.segmentation import clear_border
 from matplotlib.pyplot import imshow,show
 from tensorflow.keras.models import load_model
-from solver_algorithms import backtracking
-from solver_algorithms import algorithmx
+from Sudoku_Solver_Python.solver_algorithms import backtracking
+from Sudoku_Solver_Python.solver_algorithms import algorithmx
 
 def display_rects(in_img, rects, colour=255):
 	"""Displays rectangles on the image."""
@@ -248,7 +248,7 @@ def extract_digit(img, rect, size):
 
 def getEveryDigits(img,squares):
     labels = []
-    model = tf.keras.models.load_model('./digit_classifier.h5')
+    model = tf.keras.models.load_model('./Sudoku_Solver_Python/digit_classifier.h5')
     img2 = cv2.medianBlur(img.copy(),5)
     img2 = cv2.adaptiveThreshold(img2,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
             cv2.THRESH_BINARY,11,2)
@@ -295,7 +295,7 @@ def writeImg(solved,org_crop,img,squares):
     return org_crop
 
 def solver(img):
-	img = cv2.imread(img)
+	#img = cv2.imread(img)
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	processed = pre_process_image(gray)
 	corners = find_corners_of_largest_polygon(processed)
@@ -309,4 +309,4 @@ def solver(img):
 	result_img = writeImg(solution,org_crop,cropped,squares)
 	return result_img
 
-show_image(solver('./Puzzles/sudoku.png'))
+#show_image(solver('./Puzzles/sudoku.png'))
