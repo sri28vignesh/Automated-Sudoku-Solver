@@ -291,7 +291,7 @@ def writeImg(solved,org_crop,img,squares):
         numPixels = cv2.countNonZero(write_digit)
         tp = (int(square[0][0]+(squares[0][1][0]/3)),int(square[0][1]+(squares[0][1][0]/1.3)))
         if numPixels<80:        
-            cv2.putText(org_crop,str(solved[int(square[0][1]/squares[0][1][0])][int(square[0][0]/squares[0][1][0])]),tp, font,  fontScale,color, thickness, cv2.LINE_AA)
+            cv2.putText(org_crop,str(solved[round(square[0][1]/squares[0][1][0])][round(square[0][0]/squares[0][1][0])]),tp, font,  fontScale,color, thickness, cv2.LINE_AA)
     return org_crop
 
 def solver(img):
