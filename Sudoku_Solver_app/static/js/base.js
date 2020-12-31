@@ -44,15 +44,70 @@ function readURL(input) {
     
 }
 
-$(function () {
+$(document).ready(function () {
     $('#upload').on('change', function () {
         readURL(input);
     });
 });
 
+/*
+$(document).ready(function () {
+    $('#submit-btn').on('click', function () {
+        alert("clicked");
+        console.log("clicked");
+    });
+}); */
+
+$(document).ready(function() {
+
+    $('#submit-btn').click(function(event){
+
+    //event.preventDefault(); //prevent default action
+    var post_url = '/get-solved-res'; //get form action url
+    //var request_method = $(this).attr("method"); //get form GET/POST method
+    var input = document.getElementById("upload");
+    var img_file = input.files[0];
+    var reader = new FileReader();
+    var img_res;
+
+    reader.readAsDataURL(img_file);
+    reader.onload = function () {
+        img_res   = reader.result;
+         console.log("Image readed!");
+
+            $.ajax({
+                url: post_url,
+                type: "GET",
+                data: {jsdata: img_res},
+                success: function(response) {
+                    //console.log("Success"+ response);
+                    $("#sol-img").html(response);
+                    
+                
+                },
+                error: function(xhr) {
+                //Do Something to handle error
+                }
+            });
+            //document.getElementById('sol-text').innerHTML = "Solved Sudoku Puzzle";
+            
+        
 
 
+        };
+    reader.onerror = function(){
+        console.log(reader.error);
+    };    
 
+    //var form_data = new FormData(this);
+   
+   
+    }); 
+
+});
+
+
+/*
 async function disp_solved_image(){
 
     let domain = "http://127.0.0.1:5000";
@@ -75,3 +130,4 @@ async function disp_solved_image(){
     }
 
 }
+*/

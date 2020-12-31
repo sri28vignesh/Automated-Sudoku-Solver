@@ -3,10 +3,18 @@ import numpy as np
 import requests
 import cv2
 import base64
+from io import StringIO
+from PIL import Image
 from Sudoku_Solver_Python.Solver import solver
 
 app = Flask(__name__)
-sol_res = None
+
+def readb64(base64_string):
+    sbuf = StringIO()
+    sbuf.write(base64.b64decode(base64_string))
+    pimg = Image.open(sbuf)
+    return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
+
 
 @app.route("/")
 def home():
@@ -17,27 +25,25 @@ def test():
     return "Check"
 
 @app.route("/get-solved-res")
-def get_solved_img():
-    global sol_res
-    res = sol_res
-    resp = {'resp': res}
-    return resp
-
-@app.route("/",methods=['POST'])
 def solve_puzzle():
-    global sol_res
-    puzzle_img = cv2.imdecode(np.fromstring(request.files['user-file'].read(), np.uint8), cv2.IMREAD_UNCHANGED)
-    solved_img = solver(puzzle_img)
-    img,buffer = cv2.imencode('.jpeg',solved_img)
-    encoded_img_data = base64.b64encode(buffer)
+    resp = request.args.get('jsdata')
+    start_index = resp.find(',')
 
-    orig_img,orig_buffer= cv2.imencode('.jpeg',puzzle_img)
-    encoded_orig_data = base64.b64encode(orig_buffer)
-    
-    sol_res = encoded_img_data.decode('utf-8')
-    org_res = encoded_orig_data.decode('utf-8')
+    if resp:
+        im_bytes = base64.b64decode(resp[start_index+1:])
+        im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
+        puzzle_img = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
+        #puzzle_img = readb64(resp)
 
-    return render_template('index.html', solved_image = sol_res, orig_image = org_res)
+        solved_img = solver(puzzle_img)
+        img,buffer = cv2.imencode('.jpeg',solved_img)
+        encoded_img_data = base64.b64encode(buffer)    
+        sol_res = encoded_img_data.decode('utf-8')
+        
+        return render_template('test.html', solved_image = sol_res)
+    else:
+        #print ("Not read")
+        return "<html> No rsponse fuck! No </html>"
 
 if __name__ == "__main__":
     app.run( debug=True)
