@@ -3,17 +3,9 @@ import numpy as np
 import requests
 import cv2
 import base64
-from io import StringIO
-from PIL import Image
 from Sudoku_Solver_Python.Solver import solver
 
 app = Flask(__name__)
-
-def readb64(base64_string):
-    sbuf = StringIO()
-    sbuf.write(base64.b64decode(base64_string))
-    pimg = Image.open(sbuf)
-    return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
 
 @app.route("/")
@@ -43,7 +35,7 @@ def solve_puzzle():
         return render_template('test.html', solved_image = sol_res)
     else:
         #print ("Not read")
-        return "<html> No rsponse fuck! No </html>"
+        return "<html> No response fuck! No </html>"
 
 if __name__ == "__main__":
     app.run( debug=True)
