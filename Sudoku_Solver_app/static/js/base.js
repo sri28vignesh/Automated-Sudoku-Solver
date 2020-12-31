@@ -44,11 +44,11 @@ function readURL(input) {
     
 }
 
-$(document).ready(function () {
-    $('#upload').on('change', function () {
-        readURL(input);
+    $(document).ready(function () { 
+        $('#upload').on('change', function () {
+            readURL(input);
+        });
     });
-});
 
 /*
 $(document).ready(function () {
@@ -73,7 +73,7 @@ $(document).ready(function() {
     reader.readAsDataURL(img_file);
     reader.onload = function () {
         img_res   = reader.result;
-         console.log("Image readed!");
+         //console.log("Image readed!");
 
             $.ajax({
                 url: post_url,
@@ -83,13 +83,16 @@ $(document).ready(function() {
                     //console.log("Success"+ response);
                     $("#sol-img").html(response);
                     
+                    document.getElementById('sol-txt').innerHTML = "Solved Sudoku Puzzle";
+                    
+                    
                 
                 },
+                
                 error: function(xhr) {
                 //Do Something to handle error
                 }
             });
-            //document.getElementById('sol-text').innerHTML = "Solved Sudoku Puzzle";
             
         
 
