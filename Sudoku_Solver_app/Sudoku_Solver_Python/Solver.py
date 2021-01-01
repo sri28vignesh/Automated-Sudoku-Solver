@@ -15,14 +15,6 @@ from tensorflow.keras.models import load_model
 from Sudoku_Solver_Python.solver_algorithms import backtracking
 from Sudoku_Solver_Python.solver_algorithms import algorithmx
 
-def display_rects(in_img, rects, colour=255):
-	"""Displays rectangles on the image."""
-	img = in_img.copy()
-	for rect in rects:
-		img = cv2.rectangle(img, tuple(int(x) for x in rect[0]), tuple(int(x) for x in rect[1]), colour)
-	show_image(img)
-	return img
-
 def show_image(img):
 	imshow(img,cmap = 'gray')
 	show()
@@ -64,7 +56,20 @@ def find_corners_of_largest_polygon(img):
 	"""Finds the 4 extreme corners of the largest contour in the image."""
 	contours, h = cv2.findContours(img.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)  # Find contours
 	contours = sorted(contours, key=cv2.contourArea, reverse=True)  # Sort by area, descending
-	polygon = contours[0]  # Largest image
+    puzzleCnt = None
+    # loop over the contours
+    for c in contours:
+        # approximate the contour
+        peri = cv2.arcLength(c, True)
+        approx = cv2.approxPolyDP(c, 0.02 * peri, True)
+        # if our approximated contour has four points, then we can
+        # assume we have found the outline of the puzzle
+        if len(approx) == 4:
+            puzzleCnt = approx
+            polygon = c
+            break
+    if puzzleCnt is None:
+        return "No Puzzle Found"
 
 	# Use of `operator.itemgetter` with `max` and `min` allows us to get the index of the point
 	# Each point is an array of 1 coordinate, hence the [0] getter, then [0] or [1] used to get x and y respectively.
@@ -299,6 +304,8 @@ def solver(img):
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	processed = pre_process_image(gray)
 	corners = find_corners_of_largest_polygon(processed)
+	if corners == 'No Puzzle Found':
+		return 'No Puzzle Found'
 	cropped = crop_and_warp(gray, corners)
 	org_crop = crop_and_warp(img, corners)
 	squares = infer_grid(cropped)
