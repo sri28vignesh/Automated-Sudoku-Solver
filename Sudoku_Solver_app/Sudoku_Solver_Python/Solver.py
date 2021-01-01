@@ -221,14 +221,6 @@ def find_largest_feature(inp_img, scan_tl=None, scan_br=None):
     bbox = [[left, top], [right, bottom]]
     return img, np.array(bbox, dtype='float32'), seed_point
 
-def get_digits(img, squares, size):
-    """Extracts digits from their cells and builds an array"""
-    digits = []
-    img = pre_process_image(img.copy(), skip_dilate=True)
-    for square in squares:
-        digits.append(extract_digit(img, square, size))
-    return digits
-
 def extract_digit(img, rect, size):
     """Extracts a digit (if one exists) from a Sudoku square."""
 
@@ -261,9 +253,6 @@ def getEveryDigits(img,squares):
     img2 = cv2.bitwise_not(img2, img2)
     for square in squares:
         digit = extract_digit(img2, square, 28)
-        '''imshow(digit,cmap = 'gray')
-        show()'''
-        
         numPixels = cv2.countNonZero(digit)
         if numPixels<80:
             labels.append(0)
