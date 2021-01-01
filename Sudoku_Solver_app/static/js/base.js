@@ -46,6 +46,7 @@ function readURL(input) {
 
     $(document).ready(function () { 
         $('#upload').on('change', function () {
+            input = document.getElementById('upload');
             readURL(input);
         });
     });
@@ -64,6 +65,15 @@ $(document).ready(function() {
 
     $('#submit-btn').attr('disabled',true);
     $('#submit-btn').css('cursor','no-drop');
+    
+    // Loading Overlay
+    $.LoadingOverlay("show",{
+        background  : "rgba(85, 0, 85, 0.6)",
+        image : "",
+        fontawesome : "fa fa-cog fa-spin",
+        fontawesomeColor : "rgba(51 , 0, 51, 1)"
+    }); 
+
     var post_url = '/get-solved-res'; //get form action url
     //var request_method = $(this).attr("method"); //get form GET/POST method
     var input = document.getElementById("upload");
@@ -81,13 +91,26 @@ $(document).ready(function() {
                 type: "GET",
                 data: {jsdata: img_res},
                 success: function(response) {
-                    //console.log("Success"+ response);
+
+                    //console.log("Success "+ response);
+                    if (response ==  'No Puzzle Found, Use proper sudoku puzzle image'){
+                            //console.log('Inside if Success '+ response);
+                            document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+response+"</font>";
+                            $("#sol-img").attr('src','');
+                    }
+                    else if (response ==  'No Solution Found'){
+                        document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+response+", Use proper sudoku puzzle image</font>";
+                        $("#sol-img").html('');
+                    }
+                    else{
+                    //console.log('Inside Else');
                     $("#sol-img").html(response);
                     
                     document.getElementById('sol-txt').innerHTML = "Solved Sudoku Puzzle";
-                    
-                    
-                
+                    }
+                    $.LoadingOverlay("hide");
+                    $('#submit-btn').attr('disabled',false);
+                    $('#submit-btn').css('cursor','pointer');
                 },
                 
                 error: function(xhr) {
