@@ -62,7 +62,8 @@ $(document).ready(function() {
 
     $('#submit-btn').click(function(event){
 
-    //event.preventDefault(); //prevent default action
+    $('#submit-btn').attr('disabled',true);
+    $('#submit-btn').css('cursor','no-drop');
     var post_url = '/get-solved-res'; //get form action url
     //var request_method = $(this).attr("method"); //get form GET/POST method
     var input = document.getElementById("upload");
