@@ -24,19 +24,21 @@ def solve_puzzle():
         im_bytes = base64.b64decode(resp[start_index+1:])
         im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
         puzzle_img = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
-        #puzzle_img = readb64(resp)
 
         solved_img = solver(puzzle_img)
+        if solved_img == 'No Puzzle Found':
+            return 'No Puzzle Found, Use proper sudoku puzzle image'
+        if solved_img == 'No Solution Found':
+            return 'No Solution Found'            
         img,buffer = cv2.imencode('.jpeg',solved_img)
 
         encoded_img_data = base64.b64encode(buffer)    
         sol_res = encoded_img_data.decode('utf-8')
-        
         return render_template('test.html', solved_image = sol_res)
+        #return '<img id="imageSolved" src= "data:image/jpeg;base64,'+sol_res+'" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">'
 
     else:
-        #print ("Not read")
-        return "<html> No response fuck! No </html>"
+        return "No response"
 
 if __name__ == "__main__":
-    app.run( debug=True)
+    app.run( debug=False)
