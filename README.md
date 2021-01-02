@@ -14,7 +14,7 @@ Application that solves sudoku using python. Dancing Links(a.k.a. AlgorithmX) is
  - flask == '1.1.2' 
  - numpy == '1.19.4'
  - matplotlib == '3.3.3'
- - skimage == '0.18.1'
+ - scikit-image == '0.18.1'
 
 ## Dataset
 * Mnist Digits Dataset 
