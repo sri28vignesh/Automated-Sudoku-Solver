@@ -22,13 +22,13 @@ Application that solves sudoku using python. Dancing Links(a.k.a. AlgorithmX) is
 
 ## Images
 #### User InterFace
-![](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/User Interface/UI.png =720x405)
+![img](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/User%20Interface/UI.png =720x405)
 #### Puzzle
-![](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/Puzzles/431.jpg =720x405)
+![img](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/Puzzles/431.jpg =720x405)
 #### Solution
-![](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/User%20Interface/solution1.png =720x405)
+![img](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/User%20Interface/solution1.png =720x405)
 
 ## Contributors
 - `<link>` : [Srivignesh S](https://github.com/sri28vignesh)
-- `<link>` :[Sridharan S](https://github.com/sridharan2401)
-- `<link>` :[Khishore V S](https://github.com/khishore91)
+- `<link>` : [Sridharan S](https://github.com/sridharan2401)
+- `<link>` : [Khishore V S](https://github.com/khishore91)
