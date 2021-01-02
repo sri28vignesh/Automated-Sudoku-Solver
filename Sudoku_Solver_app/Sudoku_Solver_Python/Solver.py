@@ -4,15 +4,10 @@ import copy
 import operator
 import cv2
 import numpy as np
-import tensorflow as tf
-from matplotlib import pyplot as plt
 from matplotlib.pyplot import imshow, show
-from PIL import Image
-import tensorflow as tf
 from skimage.segmentation import clear_border
-from matplotlib.pyplot import imshow,show
 from tensorflow.keras.models import load_model
-from Sudoku_Solver_Python.solver_algorithms import backtracking
+from Sudoku_Solver_Python.valid_board import valid_board
 from Sudoku_Solver_Python.solver_algorithms import algorithmx
 
 def show_image(img):
@@ -307,6 +302,10 @@ def solver(img):
     digits = getEveryDigits(cropped, squares)
     if(np.count_nonzero(digits)<17):
         return 'No Solution Found'
+    
+    if(valid_board(digits) == False):
+        return 'No Solution Found'
+   
     sol = []
     for solution in algorithmx((3, 3), copy.deepcopy(digits)):
         sol.append(solution)

@@ -1,6 +1,5 @@
-from flask import Flask, redirect, render_template, request, url_for, Response, make_response
+from flask import Flask, render_template, request
 import numpy as np
-import requests
 import cv2
 import base64
 from Sudoku_Solver_Python.Solver import solver
@@ -11,10 +10,6 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return render_template('index.html')
-
-@app.route("/test")
-def test():
-    return "Check"
 
 @app.route("/get-solved-res")
 def solve_puzzle():
@@ -27,16 +22,14 @@ def solve_puzzle():
 
         solved_img = solver(puzzle_img)
         if solved_img == 'No Puzzle Found':
-            return 'No Puzzle Found, Use proper sudoku puzzle image'
+            return 'No Puzzle Found, please use proper sudoku puzzle image'
         if solved_img == 'No Solution Found':
             return 'No Solution Found'            
         img,buffer = cv2.imencode('.jpeg',solved_img)
 
         encoded_img_data = base64.b64encode(buffer)    
         sol_res = encoded_img_data.decode('utf-8')
-        return render_template('test.html', solved_image = sol_res)
-        #return '<img id="imageSolved" src= "data:image/jpeg;base64,'+sol_res+'" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">'
-
+        return render_template('result.html', solved_image = sol_res)
     else:
         return "No response"
 
