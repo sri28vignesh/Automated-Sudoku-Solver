@@ -1,1 +1,4 @@
 .vscode/*
+
+#virtual environment
+Sudoku_Solver_app/virtualenv/*
