@@ -240,7 +240,7 @@ def extract_digit(img, rect, size):
 
 def getEveryDigits(img,squares):
     labels = []
-    model = tf.keras.models.load_model('./Sudoku_Solver_Python/digit_classifier.h5')
+    model = load_model('./Sudoku_Solver_Python/digit_classifier.h5')
     img2 = cv2.medianBlur(img.copy(),5)
     img2 = cv2.adaptiveThreshold(img2,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
             cv2.THRESH_BINARY,11,2)
