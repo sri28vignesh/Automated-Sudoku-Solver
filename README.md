@@ -21,11 +21,11 @@ Application that solves sudoku using python. Dancing Links(a.k.a. AlgorithmX) is
 * tensorflow/Sudoku_Numbers/
 
 ## Images
-####User InterFace
+#### User InterFace
 ![](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/User Interface/UI.png =720x405)
-####Puzzle
+#### Puzzle
 ![](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/Puzzles/431.jpg =720x405)
-####Solution
+#### Solution
 ![](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/User%20Interface/solution1.png =720x405)
 
 ## Contributors
