@@ -26,12 +26,16 @@ function readURL(input) {
                   document.getElementById("upload-txt").innerHTML =  "<font color='#FF0000'> Sorry, " + fileName + " is invalid, allowed extensions are: " + validFileExtensions.join(", ") + "</font>";
                   $('#submit-btn').attr('disabled',true);
                   $('#submit-btn').css('cursor','no-drop');
+                  $("#sol-img").html('');
+                  $("#imageResult").attr('src','');
                   //return false;
               }
               else{
                 document.getElementById("upload-txt").innerHTML = "Uploaded Sudoku Puzzle Image";
                 $('#submit-btn').attr('disabled',false);
                 $('#submit-btn').css('cursor','pointer');
+                $("#sol-img").html('');
+                $('#sol-txt').html('The solved sudoku image will be rendered inside the box below.');
                 reader.onload = function (e) {
                     $('#imageResult')
                         .attr('src', e.target.result);            
@@ -52,13 +56,6 @@ function readURL(input) {
         });
     });
 
-/*
-$(document).ready(function () {
-    $('#submit-btn').on('click', function () {
-        alert("clicked");
-        console.log("clicked");
-    });
-}); */
 
 $(document).ready(function() {
 
@@ -76,7 +73,6 @@ $(document).ready(function() {
     }); 
 
     var post_url = '/get-solved-res'; //get form action url
-    //var request_method = $(this).attr("method"); //get form GET/POST method
     var input = document.getElementById("upload");
     var img_file = input.files[0];
     var reader = new FileReader();
@@ -94,15 +90,15 @@ $(document).ready(function() {
                 success: function(response) {
 
                     //console.log("Success "+ response);
-                    if (response ==  'No Puzzle Found, Use proper sudoku puzzle image'){
+                    if (response ==  'No Puzzle Found, please use proper sudoku puzzle image'){
                             //console.log('Inside if Success '+ response);
                             document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+response+"</font>";
-                            $("#sol-img").attr('src','');
+                            $("#sol-img").html('');
                             $('#submit-btn').attr('disabled',true);
                             $('#submit-btn').css('cursor','no-drop');
                     }
                     else if (response ==  'No Solution Found'){
-                        document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+response+", Use proper sudoku puzzle image</font>";
+                        document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+response+", please use proper sudoku puzzle image</font>";
                         $("#sol-img").html('');
                         $('#submit-btn').attr('disabled',true);
                         $('#submit-btn').css('cursor','no-drop');
@@ -115,9 +111,8 @@ $(document).ready(function() {
                     $('#submit-btn').attr('disabled',false);
                     $('#submit-btn').css('cursor','pointer');
                     }
-                    $.LoadingOverlay("hide");
-                    //$('#submit-btn').attr('disabled',false);
-                    //$('#submit-btn').css('cursor','pointer');
+                    $.LoadingOverlay("hide"); 
+                  
                 },
                 
                 error: function(xhr) {
@@ -130,38 +125,11 @@ $(document).ready(function() {
 
         };
     reader.onerror = function(){
-        console.log(reader.error);
+        //console.log(reader.error);
+        document.getElementById("upload-txt").innerHTML =  "<font color='#FF0000'> Sorry, " + fileName + " is unable to read </font>";
     };    
-
-    //var form_data = new FormData(this);
    
    
     }); 
 
 });
-
-
-/*
-async function disp_solved_image(){
-
-    let domain = "http://127.0.0.1:5000";
-    let url = domain + "/get-solved-res";
-    let response = await fetch(url);
-
-    console.log(response.ok);
-    
-    if (response.ok) { // if HTTP-status is 200-299
-    // get the response body (the method explained below)
-    let json_res = await response.json();
-    //json_res.resp
-    console.log(json_res.resp);
-    $("#imageSolved").attr('src', 'data:image/jpeg;base64,' + json_res.resp);
-    } 
-    
-    else {
-    //alert("HTTP-Error: " + response.status);
-    document.getElementById("sol-txt").innerHTML = "<font color='#FF0000'>Sorry there is a problem in displaying the solved puzzle image </font>";
-    }
-
-}
-*/
