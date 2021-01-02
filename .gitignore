@@ -2,3 +2,9 @@
 
 #virtual environment
 Sudoku_Solver_app/virtualenv/*
+
+#Heroku procfile
+Sudoku_Solver_app/procfile
+
+#Heroku requirements
+Sudoku_Solver_app/requirements.txt
