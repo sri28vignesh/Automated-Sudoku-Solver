@@ -5,17 +5,7 @@ function readURL(input) {
     
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#imageResult')
-                .attr('src', e.target.result);
-            $('#submit-btn').attr('disabled',false);
-            $('#submit-btn').css('cursor','default');
-
-            
-
-        };
-
+        
         reader.readAsDataURL(input.files[0]);
         var fileName = input.files[0].name;
         var validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
@@ -34,10 +24,18 @@ function readURL(input) {
               if (!blnValid) {
                   //console.log("Result"+blnValid);
                   document.getElementById("upload-txt").innerHTML =  "<font color='#FF0000'> Sorry, " + fileName + " is invalid, allowed extensions are: " + validFileExtensions.join(", ") + "</font>";
+                  $('#submit-btn').attr('disabled',true);
+                  $('#submit-btn').css('cursor','no-drop');
                   //return false;
               }
               else{
                 document.getElementById("upload-txt").innerHTML = "Uploaded Sudoku Puzzle Image";
+                $('#submit-btn').attr('disabled',false);
+                $('#submit-btn').css('cursor','pointer');
+                reader.onload = function (e) {
+                    $('#imageResult')
+                        .attr('src', e.target.result);            
+                };
               }
           }
 
