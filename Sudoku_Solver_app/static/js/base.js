@@ -9,6 +9,9 @@ function readURL(input) {
         reader.onload = function (e) {
             $('#imageResult')
                 .attr('src', e.target.result);
+            $('#submit-btn').attr('disabled',false);
+            $('#submit-btn').css('cursor','default');
+
             
 
         };
@@ -97,20 +100,26 @@ $(document).ready(function() {
                             //console.log('Inside if Success '+ response);
                             document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+response+"</font>";
                             $("#sol-img").attr('src','');
+                            $('#submit-btn').attr('disabled',true);
+                            $('#submit-btn').css('cursor','no-drop');
                     }
                     else if (response ==  'No Solution Found'){
                         document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+response+", Use proper sudoku puzzle image</font>";
                         $("#sol-img").html('');
+                        $('#submit-btn').attr('disabled',true);
+                        $('#submit-btn').css('cursor','no-drop');
                     }
                     else{
                     //console.log('Inside Else');
                     $("#sol-img").html(response);
                     
                     document.getElementById('sol-txt').innerHTML = "Solved Sudoku Puzzle";
-                    }
-                    $.LoadingOverlay("hide");
                     $('#submit-btn').attr('disabled',false);
                     $('#submit-btn').css('cursor','pointer');
+                    }
+                    $.LoadingOverlay("hide");
+                    //$('#submit-btn').attr('disabled',false);
+                    //$('#submit-btn').css('cursor','pointer');
                 },
                 
                 error: function(xhr) {
