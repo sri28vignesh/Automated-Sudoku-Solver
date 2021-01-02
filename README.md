@@ -9,12 +9,12 @@ Application that solves sudoku using python. Dancing Links(a.k.a. AlgorithmX) is
 
 ## Required Libraries
 
- - opencv-python == '4.4.0'
- - tensorflow =='2.4.0' 
- - flask == '1.1.2' 
- - numpy == '1.19.4'
- - matplotlib == '3.3.3'
- - scikit-image == '0.18.1'
+ - opencv-python==4.4.0.40
+ - tensorflow==2.4.0 
+ - flask==1.1.2 
+ - numpy==1.19.4
+ - matplotlib==3.3.3
+ - scikit-image==0.18.1
 
 ## Dataset
 * Mnist Digits Dataset 
