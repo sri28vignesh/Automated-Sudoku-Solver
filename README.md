@@ -1,6 +1,6 @@
 # Automated Sudoku Solver 
 
-Application that solves sudoku using python. Dancing Links(a.k.a. AlgorithmX) is used for solving the extracted sudoku puzzle.
+Application that solves sudoku puzzle image using python. Dancing Links(a.k.a. AlgorithmX) is used for solving the extracted sudoku puzzle.
 
 `<Live Site>` [Automated Sudoku Solver](https://autosudokusolver.herokuapp.com/)
 ## How to run sudoku solver
