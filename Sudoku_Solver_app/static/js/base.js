@@ -72,7 +72,7 @@ $(document).ready(function() {
         fontawesomeColor : "rgba(51 , 0, 51, 1)"
     }); 
 
-    var post_url = '/get-solved-res'; //get form action url
+    var post_url = '/solve_puzzle'; //get form action url
     var input = document.getElementById("upload");
     var img_file = input.files[0];
     var reader = new FileReader();
@@ -85,27 +85,32 @@ $(document).ready(function() {
 
             $.ajax({
                 url: post_url,
-                type: "GET",
-                data: {jsdata: img_res},
+                contentType: 'application/json',
+                dataType: "json",
+                type: "POST",
+                data: JSON.stringify({img_res: img_res}),
                 success: function(response) {
-
-                    //console.log("Success "+ response);
-                    if (response ==  'No Puzzle Found, please use proper sudoku puzzle image'){
+                    resp = JSON.parse(JSON.stringify(response));
+                    resp = resp.res;
+                    //alert(resp);
+                    //console.log("Success "+ resp.res);
+                    if (resp ==  'No Puzzle Found, please use proper sudoku puzzle image'){
                             //console.log('Inside if Success '+ response);
-                            document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+response+"</font>";
+                            document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+resp+"</font>";
                             $("#sol-img").html('');
                             $('#submit-btn').attr('disabled',true);
                             $('#submit-btn').css('cursor','no-drop');
                     }
-                    else if (response ==  'No Solution Found'){
-                        document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+response+", please use proper sudoku puzzle image</font>";
+                    else if (resp ==  'No Solution Found'){
+                        document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+resp+", please use proper sudoku puzzle image</font>";
                         $("#sol-img").html('');
                         $('#submit-btn').attr('disabled',true);
                         $('#submit-btn').css('cursor','no-drop');
                     }
                     else{
                     //console.log('Inside Else');
-                    $("#sol-img").html(response);
+                    result_img = '<img id="imageSolved" src= "data:image/jpeg;base64,'+resp+'" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></img>'
+                    $("#sol-img").html(result_img);
                     
                     document.getElementById('sol-txt').innerHTML = "Solved Sudoku Puzzle";
                     $('#submit-btn').attr('disabled',false);
