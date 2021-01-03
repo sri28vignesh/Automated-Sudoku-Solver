@@ -35,4 +35,4 @@ def solve_puzzle():
             return "No response"
 
 if __name__ == "__main__":
-    app.run( debug=False)
+    app.run(debug=True)
