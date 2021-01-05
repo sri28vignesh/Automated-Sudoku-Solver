@@ -1,10 +1,10 @@
 .vscode/*
 
 #virtual environment
-Sudoku_Solver_app/virtualenv/*
+virtualenv/*
 
 #Heroku procfile
 Sudoku_Solver_app/procfile
 
-#Heroku requirements
+#Requirements
 Sudoku_Solver_app/requirements.txt
