@@ -1,25 +1,23 @@
 <!doctype html>
-<html> 
+<html lang="en"> 
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <!--Favicon-->
-        <link rel="icon" href="./../static/images/sudoku.svg">
-
-        <!-- External CSS -->
-        <link rel="stylesheet" href="./../static/css/styles.css"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" >
 
         <!-- Font Awesome CSS-->
-        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" > -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/fontawesome.min.css" integrity="sha512-Wht0nNUmbLDULmKdpfG7vR7KczBqPCTNnDbbvpRZufa8QeVbkdmeEJtT5S3jbacR3+ae/B7Vb/eZoo8XH24WyA==" crossorigin="anonymous" /> -->
-
-        <title> Sudoku Solver</title>
+        
+        <!-- External CSS -->
+        <link rel="stylesheet" href="./../static/css/styles.css"> 
+        
+        <!--Favicon-->
+        <link rel="icon" href="./../static/images/favicon.ico">
+        
+        <title> Automated Sudoku Solver</title>
     </head>
 
     <body>
@@ -30,11 +28,8 @@
                 <header class="text-white text-center">
                     <h1 class="display-5">Automated Sudoku Solver</h1>
                     <p class="lead mb-0">Simply upload a sudoku puzzle image.</p>
-                   <!-- <img src="https://res.cloudinary.com/mhmd/image/upload/v1564991372/image_pxlho1.svg" alt="" width="150" class="mb-4">
-                    -->
                 </header>
             
-                <!-- <form method='POST' action="" enctype="multipart/form-data" id= "sudoku-form">  -->
                 <div class="row py-3">
                     <div class="col-lg-6 mx-auto">
             
@@ -67,10 +62,8 @@
                 </div>
                 
                 <div class="row d-flex justify-content-center">
-                    <!--button class="solve-btn"> <span>Solve Sudoku</span> </button-->
                     <button  id="submit-btn" class="btn btn-light m-0 rounded-pill px-4" style="cursor: no-drop;"  disabled autocomplete="off"> <i class="fa fa-check-circle mr-2 text-dark"></i><small class="text-uppercase font-weight-bold text-dark">Solve</small></button>
                 </div>
-                <!-- </form> -->
             </div>
             
         
