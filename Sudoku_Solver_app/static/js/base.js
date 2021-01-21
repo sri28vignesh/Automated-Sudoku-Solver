@@ -115,7 +115,7 @@ $(document).ready(function() {
                     }
                     else{
                     //console.log('Inside Else');
-                    result_img = '<img id="imageSolved" src= "data:image/jpeg;base64,'+resp+'" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></img>'
+                    result_img = '<img id="imageSolved" src= "data:image/jpeg;base64,'+resp+'" alt="sudoku solver image" class="img-fluid rounded shadow-sm mx-auto d-block"></img>'
                     $("#sol-img").html(result_img);
                     
                     document.getElementById('sol-txt').innerHTML = "Solved Sudoku Puzzle";
