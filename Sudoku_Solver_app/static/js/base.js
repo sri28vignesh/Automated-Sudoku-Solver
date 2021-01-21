@@ -107,6 +107,12 @@ $(document).ready(function() {
                         $('#submit-btn').attr('disabled',true);
                         $('#submit-btn').css('cursor','no-drop');
                     }
+                    else if(resp == 'No response'){
+                        document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+resp+", Something Went wrong no response!</font>";
+                        $("#sol-img").html('');
+                        $('#submit-btn').attr('disabled',true);
+                        $('#submit-btn').css('cursor','no-drop');
+                    }
                     else{
                     //console.log('Inside Else');
                     result_img = '<img id="imageSolved" src= "data:image/jpeg;base64,'+resp+'" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></img>'
