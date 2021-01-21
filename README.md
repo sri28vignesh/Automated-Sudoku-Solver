@@ -26,7 +26,7 @@ Application that solves sudoku puzzle image using python. Dancing Links(a.k.a. A
 #### User InterFace
 ![img](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/User%20Interface/UI.png)
 #### Puzzle
-![img](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/Puzzles/example-big.png)
+![img](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/Puzzles/Puzzle8.png)
 #### Solution
 ![img](https://github.com/sri28vignesh/Automated-Sudoku-Solver/blob/main/assets/User%20Interface/solution2.png)
 

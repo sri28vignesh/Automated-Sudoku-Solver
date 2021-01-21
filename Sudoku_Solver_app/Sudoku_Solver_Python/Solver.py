@@ -244,7 +244,8 @@ def getEveryDigits(img,squares):
     img2 = cv2.medianBlur(img.copy(),5)
     img2 = cv2.adaptiveThreshold(img2,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
             cv2.THRESH_BINARY,11,2)
-
+    kernel = np.array([[0., 1., 0.], [1., 1., 1.], [0., 1., 0.]],dtype=np.uint8)
+    img2 = cv2.dilate(img2, kernel)
     img2 = cv2.bitwise_not(img2, img2)
     for square in squares:
         digit = extract_digit(img2, square, 28)
@@ -252,6 +253,9 @@ def getEveryDigits(img,squares):
         if numPixels<80:
             labels.append(0)
         else:
+            kernel = np.array([[2., 2., 2.], [2., 2., 2.], [2., 2., 2.]],dtype=np.uint8)
+            digit = cv2.dilate(digit, kernel)
+            digit = digit/255            
             digit = np.argmax(model.predict(digit.reshape(-1,28,28,1))[0])    
             labels.append(1+ digit)
     return matrix_convert(labels)
@@ -287,17 +291,17 @@ def solver(img):
     #img = cv2.imread(img)
     isresize = False
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    h,w = gray.shape
-    if h<350 or w<350:
-        gray = cv2.resize(gray,(350,350),interpolation = cv2.INTER_LINEAR)
-        img = cv2.resize(img,(350,350),interpolation = cv2.INTER_LINEAR)
-        isresize = True
     processed = pre_process_image(gray)
     corners = find_corners_of_largest_polygon(processed)
     if corners == 'No Puzzle Found':
         return 'No Puzzle Found'
     cropped = crop_and_warp(gray, corners)
     org_crop = crop_and_warp(img, corners)
+    h,w = cropped.shape
+    if h<600 or w<600:
+        cropped = cv2.resize(cropped,(600,600),interpolation = cv2.INTER_LINEAR)
+        org_crop = cv2.resize(org_crop,(600,600),interpolation = cv2.INTER_LINEAR)
+        isresize = True
     squares = infer_grid(cropped)
     digits = getEveryDigits(cropped, squares)
     if(np.count_nonzero(digits)<17):
@@ -313,7 +317,7 @@ def solver(img):
         return 'No Solution Found'
     result_img = writeImg(solution,org_crop,cropped,squares)
     if isresize:
-        result_img = cv2.resize(result_img,(w,h),interpolation = cv2.INTER_LINEAR)
+        result_img = cv2.resize(result_img,(w,h),interpolation = cv2.INTER_AREA)
     return result_img
 
 #show_image(solver('./Puzzles/sudoku.png'))
