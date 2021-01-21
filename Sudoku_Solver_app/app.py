@@ -14,8 +14,7 @@ def home():
 
 @app.route("/solve_puzzle", methods=['POST'])
 def solve_puzzle():
-    if request.method == "POST":
-        try:    
+    if request.method == "POST":    
             resp = request.get_json('img_res')
             resp = resp['img_res']
             start_index = resp.find(',')
@@ -36,8 +35,6 @@ def solve_puzzle():
                 return jsonify(res=sol_res)
             else:
                 return jsonify(res="No response")
-        except:
-            return jsonify(res="No response")
 
 if __name__ == "__main__":
     app.run(debug=True)

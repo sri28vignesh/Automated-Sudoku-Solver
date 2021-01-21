@@ -92,8 +92,6 @@ $(document).ready(function() {
                 success: function(response) {
                     resp = JSON.parse(JSON.stringify(response));
                     resp = resp.res;
-                    //alert(resp);
-                    //console.log("Success "+ resp.res);
                     if (resp ==  'No Puzzle Found, please use proper sudoku puzzle image'){
                             //console.log('Inside if Success '+ response);
                             document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+resp+"</font>";
@@ -108,7 +106,7 @@ $(document).ready(function() {
                         $('#submit-btn').css('cursor','no-drop');
                     }
                     else if(resp == 'No response'){
-                        document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+resp+", Something Went wrong no response!</font>";
+                        document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>"+resp+"! Something Went wrong, try uploading proper sudoku puzzle image</font>";
                         $("#sol-img").html('');
                         $('#submit-btn').attr('disabled',true);
                         $('#submit-btn').css('cursor','no-drop');
@@ -128,7 +126,13 @@ $(document).ready(function() {
                 
                 error: function(xhr) {
                 //Do Something to handle error
+                document.getElementById('sol-txt').innerHTML = "<font color='#FF0000'>Something Went wrong, try uploading proper sudoku puzzle image</font>";
+                $("#sol-img").html('');
+                $('#submit-btn').attr('disabled',true);
+                $('#submit-btn').css('cursor','no-drop');
+                $.LoadingOverlay("hide"); 
                 }
+
             });
             
         

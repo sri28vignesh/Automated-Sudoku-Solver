@@ -129,7 +129,7 @@ def infer_grid(img):
 def scale_and_centre(img, size, margin=0, background=0):
     """Scales and centres an image onto a new background square."""
     h, w = img.shape[:2]
-
+    #h, w = max(h,1), max(w,1)
     def centre_pad(length):
         """Handles centering for a given length that may be odd or even."""
         if length % 2 == 0:
